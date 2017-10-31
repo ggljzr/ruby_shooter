@@ -13,7 +13,8 @@ class View
         @screen_size_x = screen_size_x
         @screen_size_y = screen_size_y
 
-        @screen =  Rubygame::Screen.new [screen_size_y,screen_size_x], 0, [Rubygame::HWSURFACE, Rubygame::DOUBLEBUF]
+        @screen =  Rubygame::Screen.new([screen_size_y,screen_size_x], 
+            0, [Rubygame::HWSURFACE, Rubygame::DOUBLEBUF])
         @screen.title = 'Ruby Shooter'
 
         @drawer = GraphicsDrawer.new(@screen)
