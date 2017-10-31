@@ -30,10 +30,10 @@ class Cannon < GameObject
     end
 
     def fire
-        Missile.new(@angle, @x, @y)
+        Missile.new(@x, @y, @angle)
     end
 
     def get_position
-        CannonPosition.new(@angle, @x, @y)
+        CannonPosition.new(@x, @y, @angle)
     end
 end
