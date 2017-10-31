@@ -5,25 +5,28 @@ require_relative 'cannon_position'
 class Cannon < GameObject
     attr_accessor :angle
 
+    MOVE_STEP = 5
+    AIM_STEP = 0.2
+
     def initialize(x = 0, y = 0)
         super(x, y)
         @angle = 0
     end
 
     def move_up
-        @y -= 5
+        @y -= MOVE_STEP
     end
 
     def move_down
-        @y += 5
+        @y += MOVE_STEP
     end
 
     def aim_up
-        @angle += 0.2
+        @angle += AIM_STEP
     end
 
     def aim_down
-        @angle -= 0.2
+        @angle -= AIM_STEP
     end
 
     def fire

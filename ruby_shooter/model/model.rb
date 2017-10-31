@@ -15,20 +15,27 @@ class Model
     attr_reader :world_size_x, :world_size_y, :score
     attr_accessor :running
 
+    CANNON_START_X = 10
+    CANNON_START_Y = 100
+
+    TARGET_FRAMERATE = 30
+
+    MAX_ENEMIES = 5
+
     def initialize(world_size_x = 500, world_size_y = 500)
         super()
 
         @world_size_x = world_size_x
         @world_size_y = world_size_y
 
-        @cannon = Cannon.new(10, 100)
+        @cannon = Cannon.new(CANNON_START_X, CANNON_START_Y)
         @missiles = []
         @enemies = []
 
         @score = 0
 
         @clock = Rubygame::Clock.new
-        @clock.target_framerate = 30
+        @clock.target_framerate = TARGET_FRAMERATE
 
         @running = true
     end
@@ -76,7 +83,7 @@ class Model
 
             @clock.tick
 
-            if @enemies.length < 5
+            if @enemies.length < MAX_ENEMIES
                 spawn_enemy
             end
 
