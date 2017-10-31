@@ -24,8 +24,8 @@ class GraphicsDrawer
         image.blit(@screen, rect)
     end
 
-    def draw_cannon(position)
-        deg = position.angle * 180 / Math::PI
+    def draw_cannon(position, angle)
+        deg = angle * 180 / Math::PI
         rot_cannon = @cannon_sprite.rotozoom(deg * -1, 1)
         draw_sprite(rot_cannon, position)
     end
@@ -38,9 +38,11 @@ class GraphicsDrawer
         draw_sprite(@enemy_sprite, position)
     end
 
-    def print_score(score)
+    def draw_score(position, score)
         text_surface = @font.render_utf8("Score: #{score}", true, @font_color)
         rect = text_surface.make_rect
+        rect.x = position.x
+        rect.y = position.y
         text_surface.blit(@screen, rect)
     end
 end

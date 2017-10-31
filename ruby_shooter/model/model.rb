@@ -3,6 +3,7 @@ require 'rubygame'
 require_relative 'cannon'
 require_relative 'missile'
 require_relative 'enemy'
+require_relative 'score'
 
 require_relative '../controller/controller'
 
@@ -31,7 +32,7 @@ class Model
         @missiles = []
         @enemies = []
 
-        @score = 0
+        @score = Score.new
 
         @clock = Rubygame::Clock.new
         @clock.target_framerate = TARGET_FRAMERATE
@@ -68,6 +69,7 @@ class Model
         objects = []
 
         objects << @cannon
+        objects << @score
         @missiles.each { |m| objects << m}
         @enemies.each { |e| objects << e}
         
@@ -99,7 +101,7 @@ class Model
                     if e.get_collision(m)
                         @missiles.delete(m)
                         @enemies.delete(e)
-                        @score += 1
+                        @score.inc
                     end
                 end
 

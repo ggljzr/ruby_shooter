@@ -1,6 +1,5 @@
 require_relative 'game_object'
 require_relative 'missile'
-require_relative 'cannon_position'
 
 class Cannon < GameObject
     attr_accessor :angle
@@ -31,9 +30,5 @@ class Cannon < GameObject
 
     def fire
         Missile.new(@x, @y, @angle)
-    end
-
-    def get_position
-        CannonPosition.new(@x, @y, @angle)
     end
 end
