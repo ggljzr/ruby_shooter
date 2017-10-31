@@ -1,4 +1,3 @@
-require_relative 'position'
 require_relative '../utils/visitable'
 
 
