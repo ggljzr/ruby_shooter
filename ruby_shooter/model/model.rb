@@ -7,12 +7,11 @@ require_relative 'enemy'
 require_relative '../controller/controller'
 
 require_relative '../utils/observable'
-require_relative '../utils/visitable'
 
 class Model
     include Observable, Visitable
 
-    attr_reader :world_size_x, :world_size_y, :score
+    attr_reader :world_size_x, :world_size_y, :score, :cannon, :missiles, :enemies
     attr_accessor :running
 
     CANNON_START_X = 10
@@ -65,14 +64,14 @@ class Model
                               rand(@world_size_y * 0.1..@world_size_y * 0.9))
     end
 
-    def get_sprites_positions
-        positions = []
+    def get_game_objects
+        objects = []
 
-        positions << @cannon.get_position
-        @missiles.each { |m| positions << m.get_position}
-        @enemies.each { |e| positions << e.get_position}
+        objects << @cannon
+        @missiles.each { |m| objects << m}
+        @enemies.each { |e| objects << e}
         
-        positions
+        objects
     end
 
     def run

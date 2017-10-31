@@ -1,6 +1,6 @@
 require 'rubygame'
 
-require_relative 'model_visitor'
+require_relative 'object_visitor'
 require_relative 'graphics_drawer'
 
 
@@ -22,13 +22,13 @@ class View
         @bg = @drawer.bg
         @bg.blit(@screen, [0, 0])
 
-        @model_visitor = ModelVisitor.new(@drawer)
-
+        @object_visitor = ObjectVisitor.new(@drawer)
     end
 
     def update
         @bg.blit(@screen, [0, 0]) #clear the screen
-        @game_model.accept(@model_visitor)
+        objects = @game_model.get_game_objects
+        objects.each { |o| o.accept(@object_visitor)}
         @screen.update
     end
 

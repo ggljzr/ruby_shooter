@@ -1,7 +1,11 @@
 require_relative 'position'
+require_relative '../utils/visitable'
+
 
 class GameObject 
     attr_reader :x, :y, :r
+
+    include Visitable
 
     def initialize(x = 0, y = 0, r = 20)
         @x = x
