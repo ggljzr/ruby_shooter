@@ -17,32 +17,32 @@ class GraphicsDrawer
         @font_color = [0xee, 0xee, 0x33]
     end
 
-    def draw_sprite(image, position)
+    def draw_sprite(image, x, y)
         rect = image.make_rect
-        rect.x = position.x
-        rect.y = position.y
+        rect.x = x
+        rect.y = y
         image.blit(@screen, rect)
     end
 
-    def draw_cannon(position, angle)
-        deg = angle * 180 / Math::PI
+    def draw_cannon(cannon)
+        deg = cannon.angle * 180 / Math::PI
         rot_cannon = @cannon_sprite.rotozoom(deg * -1, 1)
-        draw_sprite(rot_cannon, position)
+        draw_sprite(rot_cannon, cannon.x, cannon.y)
     end
 
-    def draw_missile(position)
-        draw_sprite(@missile_sprite, position)
+    def draw_missile(missile)
+        draw_sprite(@missile_sprite, missile.x, missile.y)
     end
 
-    def draw_enemy(position)
-        draw_sprite(@enemy_sprite, position)
+    def draw_enemy(enemy)
+        draw_sprite(@enemy_sprite, enemy.x, enemy.y)
     end
 
-    def draw_score(position, score)
-        text_surface = @font.render_utf8("Score: #{score}", true, @font_color)
+    def draw_score(score)
+        text_surface = @font.render_utf8("Score: #{score.value}", true, @font_color)
         rect = text_surface.make_rect
-        rect.x = position.x
-        rect.y = position.y
+        rect.x = score.x
+        rect.y = score.y
         text_surface.blit(@screen, rect)
     end
 end

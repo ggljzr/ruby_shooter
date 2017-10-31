@@ -21,8 +21,8 @@ class GameObject
         dist < (@r + other_object.r)
     end
 
-    def get_position
-        Position.new(@x, @y, self.class.to_s.to_sym)
+    def get_type
+        self.class.to_s.to_sym
     end
 end
 
