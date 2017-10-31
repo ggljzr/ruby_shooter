@@ -4,7 +4,7 @@ class Missile < GameObject
 
     MISSILE_SPEED = 6
 
-    def initialize(angle = 2 * Math::PI, x = 0, y = 0)
+    def initialize(x = 0, y = 0, angle = 2 * Math::PI)
         super(x, y)
         @angle = angle
     end

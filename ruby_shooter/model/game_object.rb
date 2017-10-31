@@ -18,7 +18,7 @@ class GameObject
     end
 
     def get_position
-        Position.new(self.class.to_s.to_sym, @x, @y)
+        Position.new(@x, @y, self.class.to_s.to_sym)
     end
 end
 
