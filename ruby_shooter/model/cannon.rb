@@ -2,7 +2,7 @@ require_relative 'game_object'
 require_relative 'missile'
 
 class Cannon < GameObject
-    attr_accessor :angle
+    attr_reader :angle
 
     MOVE_STEP = 5
     AIM_STEP = 0.2
