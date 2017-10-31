@@ -33,7 +33,5 @@ class Controller
             when :q
                 @game_model.running = false
         end
-
-        p key
     end
 end
