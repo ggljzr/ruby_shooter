@@ -1,17 +1,18 @@
-require_relative 'missile'
+require_relative 'game_object'
+require_relative 'direction'
 
 class StateSingle
     def fire(cannon)
         cannon.state = StateDouble.new
-        [Missile.new(cannon.x, cannon.y, cannon.angle)]
+        [Direction.new(cannon.x, cannon.y, cannon.angle)]
     end
 end
 
 class StateDouble
     def fire(cannon)
         cannon.state = StateSingle.new
-        r = Missile.new(cannon.x, cannon.y, cannon.angle - 0.2)
-        l = Missile.new(cannon.x, cannon.y, cannon.angle + 0.2)
+        r = Direction.new(cannon.x, cannon.y, cannon.angle - 0.2)
+        l = Direction.new(cannon.x, cannon.y, cannon.angle + 0.2)
         [r, l]
     end
 end
