@@ -4,7 +4,7 @@ require_relative 'object_visitor'
 require_relative 'graphics_drawer'
 
 class View
-
+    
     def initialize(game_model, screen_size_x = 500, screen_size_y = 500)
         
         @game_model = game_model

@@ -12,7 +12,7 @@ require_relative '../utils/observable'
 class Model
     include Observable, Visitable
 
-    attr_accessor :running
+    attr_reader :running
 
     CANNON_START_X = 10
     CANNON_START_Y = 100
@@ -43,7 +43,7 @@ class Model
         @clock = Rubygame::Clock.new
         @clock.target_framerate = TARGET_FRAMERATE
 
-        @running = true
+        @running = false
     end
 
     def move_cannon_up
@@ -60,6 +60,14 @@ class Model
 
     def aim_cannon_down
         @cannon.aim_down
+    end
+
+    def get_cannon_x
+        @cannon.x
+    end
+
+    def get_cannon_y
+        @cannon.y
     end
 
     def fire_cannon
@@ -81,6 +89,8 @@ class Model
     def run
 
         spawn_enemy
+
+        @running = true
 
         while @running do
 
@@ -111,6 +121,10 @@ class Model
 
             notify_observers
         end
+    end
+
+    def stop
+        @running = false
     end
 
     private

@@ -31,7 +31,7 @@ class Controller
             when :d
                 @game_model.aim_cannon_down
             when :q
-                @game_model.running = false
+                @game_model.stop
         end
     end
 end
