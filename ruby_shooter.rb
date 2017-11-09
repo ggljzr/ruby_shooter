@@ -9,7 +9,7 @@ class RubyShooter
         real_mode = ARGV.include?('real')
 
         game_model = Model.new(world_size_x, world_size_y, real_mode)
-        game_view = View.new(game_model)
+        game_view = View.new(game_model, world_size_x, world_size_y)
         game_controller = Controller.new(game_model)
 
         game_model.add_observer(game_view)
