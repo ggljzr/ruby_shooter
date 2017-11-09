@@ -18,7 +18,7 @@ class Model
     CANNON_START_X = 10
     CANNON_START_Y = 100
 
-    TARGET_FRAMERATE = 30
+    TARGET_FRAMERATE = 60
 
     MAX_ENEMIES = 5
 
@@ -57,7 +57,7 @@ class Model
     end
 
     def fire_cannon
-        @missiles << @cannon.fire
+        @cannon.fire.each { |m| @missiles << m }
     end
 
     def spawn_enemy
