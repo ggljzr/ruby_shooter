@@ -4,7 +4,11 @@ require_relative 'ruby_shooter/controller/controller'
 
 class RubyShooter
     def self.run
-        game_model = Model.new
+        world_size_x = 500
+        world_size_y = 500
+        real_mode = ARGV.include?('real')
+
+        game_model = Model.new(world_size_x, world_size_y, real_mode)
         game_view = View.new(game_model)
         game_controller = Controller.new(game_model)
 

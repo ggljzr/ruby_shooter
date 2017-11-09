@@ -1,7 +1,7 @@
 require 'rubygame'
 
 require_relative 'cannon'
-require_relative 'missile'
+require_relative 'missile_factory'
 require_relative 'enemy'
 require_relative 'score'
 
@@ -22,13 +22,20 @@ class Model
 
     MAX_ENEMIES = 5
 
-    def initialize(world_size_x = 500, world_size_y = 500)
+    def initialize(world_size_x = 500, world_size_y = 500, real_mode = false)
         super()
 
         @world_size_x = world_size_x
         @world_size_y = world_size_y
 
         @cannon = Cannon.new(CANNON_START_X, CANNON_START_Y)
+
+        if real_mode == true
+            @missile_factory = RealMissileFactory.new
+        else
+            @missile_factory = SimpleMissileFactory.new
+        end
+
         @missiles = []
         @enemies = []
 
@@ -57,7 +64,7 @@ class Model
     end
 
     def fire_cannon
-        @cannon.fire.each { |m| @missiles << m }
+        @cannon.fire.each { |d| @missiles << @missile_factory.create_missile(d) }
     end
 
     def spawn_enemy
