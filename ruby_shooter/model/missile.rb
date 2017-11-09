@@ -4,28 +4,28 @@ class MissileMoveStrategy
     MISSILE_SPEED = 6
 end
 
-class SimpleMove < MissileMoveStrategy
+class SimpleMissileMove < MissileMoveStrategy
     def move(missile)
         missile.x += MISSILE_SPEED * Math.cos(missile.angle)
         missile.y += MISSILE_SPEED * Math.sin(missile.angle)
     end
 end
 
-class RealMove < MissileMoveStrategy
+class RealMissileMove < MissileMoveStrategy
 
-    ANGEL_FALLOFF = 0.01
+    ANGLE_FALLOFF = 0.01
 
     def move(missile)
         missile.x += MISSILE_SPEED * Math.cos(missile.angle)
         missile.y += MISSILE_SPEED * Math.sin(missile.angle)
-        missile.angle += ANGEL_FALLOFF
+        missile.angle += ANGLE_FALLOFF
     end
 end
 
 class Missile < GameObject
     attr_accessor :x, :y, :angle
 
-    def initialize(x = 0, y = 0, angle = 2 * Math::PI, move_strategy = SimpleMove.new)
+    def initialize(x = 0, y = 0, angle = 2 * Math::PI, move_strategy = SimpleMissileMove.new)
         super(x, y)
         @angle = angle
         @move_strategy = move_strategy

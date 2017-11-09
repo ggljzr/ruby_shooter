@@ -1,12 +1,10 @@
 require 'rubygame'
 
 require_relative 'cannon'
-require_relative 'missile_factory'
-require_relative 'enemy'
+require_relative 'factories'
 require_relative 'score'
 
 require_relative '../controller/controller'
-
 require_relative '../utils/observable'
 
 class Model
@@ -31,8 +29,10 @@ class Model
 
         if real_mode == true
             @missile_factory = RealMissileFactory.new
+            @enemy_factory = RealEnemyFactory.new
         else
             @missile_factory = SimpleMissileFactory.new
+            @enemy_factory = SimpleEnemyFactory.new
         end
 
         @missiles = []
@@ -100,6 +100,8 @@ class Model
                 spawn_enemy
             end
 
+            @enemies.each { |e| e.move }
+
             @missiles.each do |m|
 
                 if m.x.between?(0, @world_size_x) and m.y.between?(0, @world_size_y)
@@ -130,7 +132,6 @@ class Model
     private
 
     def spawn_enemy
-        @enemies << Enemy.new(rand(@world_size_x * 0.3..@world_size_x * 0.9),
-                              rand(@world_size_y * 0.1..@world_size_y * 0.9))
+        @enemies << @enemy_factory.create_enemy(@world_size_x, @world_size_y)
     end
 end
