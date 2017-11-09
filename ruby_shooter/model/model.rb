@@ -64,7 +64,8 @@ class Model
     end
 
     def fire_cannon
-        @cannon.fire.each { |d| @missiles << @missile_factory.create_missile(d) }
+        directions = @cannon.get_missile_directions
+        directions.each { |d| @missiles << @missile_factory.create_missile(d) }
     end
 
     def spawn_enemy
