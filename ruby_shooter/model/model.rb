@@ -90,7 +90,7 @@ class Model
 
             @missiles.each do |m|
 
-                if m.x < @world_size_x
+                if m.x.between?(0, @world_size_x) and m.y.between?(0, @world_size_y)
                     m.move
                 else
                     @missiles.delete(m)
