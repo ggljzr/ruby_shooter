@@ -1,18 +1,18 @@
 require_relative 'game_object'
 
-class SimpleMove
-
+class MissileMoveStrategy
     MISSILE_SPEED = 6
+end
 
+class SimpleMove < MissileMoveStrategy
     def move(missile)
         missile.x += MISSILE_SPEED * Math.cos(missile.angle)
         missile.y += MISSILE_SPEED * Math.sin(missile.angle)
     end
 end
 
-class RealMove
+class RealMove < MissileMoveStrategy
 
-    MISSILE_SPEED = 6
     ANGEL_FALLOFF = 0.01
 
     def move(missile)
