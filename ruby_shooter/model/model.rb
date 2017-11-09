@@ -12,7 +12,6 @@ require_relative '../utils/observable'
 class Model
     include Observable, Visitable
 
-    attr_reader :world_size_x, :world_size_y, :score, :cannon, :missiles, :enemies
     attr_accessor :running
 
     CANNON_START_X = 10
@@ -68,11 +67,6 @@ class Model
         directions.each { |d| @missiles << @missile_factory.create_missile(d) }
     end
 
-    def spawn_enemy
-        @enemies << Enemy.new(rand(@world_size_x * 0.3..@world_size_x * 0.9),
-                              rand(@world_size_y * 0.1..@world_size_y * 0.9))
-    end
-
     def get_game_objects
         objects = []
 
@@ -117,5 +111,12 @@ class Model
 
             notify_observers
         end
+    end
+
+    private
+
+    def spawn_enemy
+        @enemies << Enemy.new(rand(@world_size_x * 0.3..@world_size_x * 0.9),
+                              rand(@world_size_y * 0.1..@world_size_y * 0.9))
     end
 end
