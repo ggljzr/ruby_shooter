@@ -1,5 +1,7 @@
 require 'rubygame'
 
+require_relative 'game_loop'
+
 require_relative 'cannon'
 require_relative 'factories'
 require_relative 'score'
@@ -10,12 +12,10 @@ require_relative '../utils/observable'
 class Model
   include Observable, Visitable
 
-  attr_reader :running
+  attr_reader :missiles, :enemies
 
   CANNON_START_X = 10
   CANNON_START_Y = 100
-
-  TARGET_FRAMERATE = 60
 
   MAX_ENEMIES = 8
 
@@ -40,10 +40,7 @@ class Model
 
     @score = Score.new
 
-    @clock = Rubygame::Clock.new
-    @clock.target_framerate = TARGET_FRAMERATE
-
-    @running = false
+    @game_loop = GameLoop.new(self)
   end
 
   def move_cannon_up
@@ -70,11 +67,6 @@ class Model
     @cannon.y
   end
 
-  def fire_cannon
-    directions = @cannon.get_missile_directions
-    directions.each { |d| @missiles << @missile_factory.create_missile(d) }
-  end
-
   def get_game_objects
     objects = []
 
@@ -86,52 +78,37 @@ class Model
     objects
   end
 
-  def run
-    spawn_enemy
-
-    @running = true
-
-    while @running
-      @clock.tick
-
-      if @enemies.length < MAX_ENEMIES
-        spawn_enemy
-      end
-
-      @missiles.each do |m|
-        if !m.x.between?(0, @world_size_x) or !m.y.between?(0, @world_size_y)
-          @missiles.delete(m)
-          next
-        end
-
-        m.move
-
-        @enemies.each do |e|
-          e.move(m)
-          enemy_missile_collision(e, m) if e.get_collision(m)
-          if !e.x.between?(0, @world_size_x) or !e.y.between?(0, @world_size_y)
-            @enemies.delete(e)
-          end
-        end
-      end
-
-      notify_observers
-    end
+  def fire_cannon
+    directions = @cannon.get_missile_directions
+    directions.each { |d| @missiles << @missile_factory.create_missile(d) }
   end
-
-  def stop
-    @running = false
-  end
-
-  private
 
   def spawn_enemy
-    @enemies << @enemy_factory.create_enemy(@world_size_x, @world_size_y)
+    if @enemies.length < MAX_ENEMIES
+      @enemies << @enemy_factory.create_enemy(@world_size_x, @world_size_y)
+    end
   end
 
   def enemy_missile_collision(enemy, missile)
     @missiles.delete(missile)
     @enemies.delete(enemy)
     @score.inc
+  end
+
+  def remove_old_objects
+    @missiles = @missiles.select { |m| m.check_bounds(@world_size_x, @world_size_y)}
+    @enemies = @enemies.select { |e| e.check_bounds(@world_size_x, @world_size_y)}
+  end
+
+  def run
+    @game_loop.run
+  end
+
+  def stop
+    @game_loop.stop
+  end
+
+  def running?
+    @game_loop.running
   end
 end

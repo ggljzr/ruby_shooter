@@ -35,7 +35,7 @@ class ModelProxy
   end
 
   def run
-    if @game_model.running == true
+    if @game_model.running?
       p 'Game already running'
       return
     end
