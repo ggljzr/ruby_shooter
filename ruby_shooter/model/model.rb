@@ -57,14 +57,6 @@ class Model
     @cannon.aim_down
   end
 
-  def get_cannon_x
-    @cannon.x
-  end
-
-  def get_cannon_y
-    @cannon.y
-  end
-
   def get_game_objects
     objects = []
 
