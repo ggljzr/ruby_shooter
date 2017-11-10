@@ -25,4 +25,11 @@ class GameObject
   def get_type
     self.class.to_s.to_sym
   end
+
+  def check_bounds(max_x, max_y)
+    if @x.between?(0, max_x) and @y.between?(0, max_y)
+      return true
+    end
+    false
+  end
 end
