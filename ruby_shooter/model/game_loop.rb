@@ -3,6 +3,7 @@ require 'rubygame'
 class GameLoop
 
   attr_reader :running
+  alias_method :running?, :running
 
   TARGET_FRAMERATE = 60
 

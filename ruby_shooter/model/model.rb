@@ -107,6 +107,6 @@ class Model
   end
 
   def running?
-    @game_loop.running
+    @game_loop.running?
   end
 end
