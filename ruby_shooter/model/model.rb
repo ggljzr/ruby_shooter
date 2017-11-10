@@ -17,7 +17,7 @@ class Model
 
   TARGET_FRAMERATE = 60
 
-  MAX_ENEMIES = 5
+  MAX_ENEMIES = 8
 
   def initialize(world_size_x = 500, world_size_y = 500, real_mode = false)
     super()
