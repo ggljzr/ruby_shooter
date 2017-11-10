@@ -1,3 +1,5 @@
+require 'rubygame'
+
 class GameLoop
 
   attr_reader :running

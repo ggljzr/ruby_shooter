@@ -1,5 +1,3 @@
-require 'rubygame'
-
 require_relative 'game_loop'
 
 require_relative 'cannon'
