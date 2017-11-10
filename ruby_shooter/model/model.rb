@@ -100,22 +100,20 @@ class Model
                 spawn_enemy
             end
 
-            @enemies.each { |e| e.move }
-
             @missiles.each do |m|
 
-                if m.x.between?(0, @world_size_x) and m.y.between?(0, @world_size_y)
-                    m.move
-                else
+                if !m.x.between?(0, @world_size_x) or !m.y.between?(0, @world_size_y)
                     @missiles.delete(m)
                     next
                 end
 
+                m.move
+
                 @enemies.each do |e|
-                    if e.get_collision(m)
-                        @missiles.delete(m)
+                    e.move(m)
+                    enemy_missile_collision(e, m) if e.get_collision(m)
+                    if !e.x.between?(0, @world_size_x) or !e.y.between?(0, @world_size_y)
                         @enemies.delete(e)
-                        @score.inc
                     end
                 end
 
@@ -133,5 +131,11 @@ class Model
 
     def spawn_enemy
         @enemies << @enemy_factory.create_enemy(@world_size_x, @world_size_y)
+    end
+
+    def enemy_missile_collision(enemy, missile)
+        @missiles.delete(missile)
+        @enemies.delete(enemy)
+        @score.inc
     end
 end
