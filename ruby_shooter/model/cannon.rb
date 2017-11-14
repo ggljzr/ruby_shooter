@@ -17,6 +17,8 @@ class StateDouble
   end
 end
 
+#este treba udelat to force pro ten vystrel
+
 class Cannon < GameObject
   attr_reader :angle
   attr_accessor :state
@@ -46,6 +48,15 @@ class Cannon < GameObject
     @angle -= AIM_STEP
   end
 
+  #von tam ma metodu fire a ty predava
+  #referenci na tu missile factory
+  #takze by to asi taky slo udelat
+  #ze by to vracelo primo pole missiles
+  #nebo ta missile factory by mohla
+  #bejt i tridni promenna
+
+  #to by tady pak asi nemusel vytvaret
+  #ty directions ale vracet rovnou ty rakety
   def get_missile_directions
     @state.get_missile_directions(self)
   end

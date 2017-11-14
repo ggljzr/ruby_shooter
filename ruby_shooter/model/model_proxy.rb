@@ -1,5 +1,12 @@
 require_relative 'model'
 
+#tu muzu udelat asi treba to logovani
+#von v ty proxy ale taky zadnou logiku
+#navic nemel
+
+#rikal logovani nebo nakou kontrolu parametru no
+#(nebo tu kontrolu toho screen_size rozsahu)
+
 class ModelProxy
 
   def initialize(world_size_x = 500, world_size_y = 500, real_mode = false)
@@ -44,6 +51,7 @@ class ModelProxy
   end
 
   def stop
+    #nebo tady udelat nakej update high scores
     @game_model.stop
   end
 
