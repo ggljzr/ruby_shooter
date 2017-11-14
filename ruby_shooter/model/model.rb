@@ -26,11 +26,9 @@ class Model
     @cannon = Cannon.new(CANNON_START_X, CANNON_START_Y)
 
     if real_mode == true
-      @missile_factory = RealMissileFactory.new
-      @enemy_factory = RealEnemyFactory.new
+      @entities_factory = RealEntitiesFactory.new
     else
-      @missile_factory = SimpleMissileFactory.new
-      @enemy_factory = SimpleEnemyFactory.new
+      @entities_factory = SimpleEntitiesFactory.new
     end
 
     @missiles = []
@@ -70,12 +68,12 @@ class Model
 
   def fire_cannon
     directions = @cannon.get_missile_directions
-    directions.each { |d| @missiles << @missile_factory.create_missile(d) }
+    directions.each { |d| @missiles << @entities_factory.create_missile(d) }
   end
 
   def spawn_enemy
     if @enemies.length < MAX_ENEMIES
-      @enemies << @enemy_factory.create_enemy(@world_size_x, @world_size_y)
+      @enemies << @entities_factory.create_enemy(@world_size_x, @world_size_y)
     end
   end
 
