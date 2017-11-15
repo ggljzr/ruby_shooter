@@ -67,8 +67,7 @@ class Model
   end
 
   def fire_cannon
-    directions = @cannon.get_missile_directions
-    directions.each { |d| @missiles << @entities_factory.create_missile(d) }
+    @missiles.concat(@cannon.fire(@entities_factory))
   end
 
   def spawn_enemy

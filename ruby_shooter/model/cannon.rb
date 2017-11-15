@@ -57,7 +57,10 @@ class Cannon < GameObject
 
   #to by tady pak asi nemusel vytvaret
   #ty directions ale vracet rovnou ty rakety
-  def get_missile_directions
-    @state.get_missile_directions(self)
+  def fire(missile_factory)
+    dirs = @state.get_missile_directions(self)
+    new_missiles = []
+    dirs.each { |d| new_missiles << missile_factory.create_missile(d) }
+    new_missiles
   end
 end
