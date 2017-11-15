@@ -1,4 +1,5 @@
 require_relative 'game_object'
+require_relative 'direction'
 
 #rakety by si mohly drzet cas vytvoreni
 #a ten pak pouzivat pro vypocet ty drahy
@@ -17,14 +18,17 @@ class SimpleMissileMove < MissileMoveStrategy
 
   #to samy u enemy
   #jako tu navratovou hodnotu pouzit treba direction
-  def move(missile)
-    missile.x += MISSILE_SPEED * Math.cos(missile.angle)
-    missile.y += MISSILE_SPEED * Math.sin(missile.angle)
+  def get_next_position(missile)
+    new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
+    new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
+    new_angle = missile.angle
 
     #freefall = 0.5 * gravity * time**2
     #newY = tempY - freefall
 
     #newX = newX - dragforce
+
+    Direction.new(new_x, new_y, new_angle)
   end
 end
 
@@ -32,15 +36,17 @@ class RealMissileMove < MissileMoveStrategy
 
   ANGLE_FALLOFF = 0.01
 
-  def move(missile)
-    missile.x += MISSILE_SPEED * Math.cos(missile.angle)
-    missile.y += MISSILE_SPEED * Math.sin(missile.angle)
-    missile.angle += ANGLE_FALLOFF
+  def get_next_position(missile)
+    new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
+    new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
+    new_angle = ANGLE_FALLOFF + missile.angle
+
+    Direction.new(new_x, new_y, new_angle)
   end
 end
 
 class Missile < GameObject
-  attr_accessor :x, :y, :angle
+  attr_reader :angle
 
   def initialize(x = 0, y = 0, angle = 2 * Math::PI, move_strategy = SimpleMissileMove.new)
     super(x, y)
@@ -49,6 +55,9 @@ class Missile < GameObject
   end
 
   def move
-    @move_strategy.move(self)
+    new_position = @move_strategy.get_next_position(self)
+    @x = new_position.x
+    @y = new_position.y
+    @angle = new_position.angle
   end
 end
