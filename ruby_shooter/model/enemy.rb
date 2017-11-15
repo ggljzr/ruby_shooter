@@ -11,13 +11,14 @@ class RealEnemyMove
   RAND_STEP = 1
   SCARE_COEFICIENT = 2.5
   SCARE_SPEED = 3
+  DISPERSION = 0.2
 
   def get_next_position(enemy, missile)
     new_x = 0
     new_y = 0
 
     if enemy.get_collision_dist(missile) < enemy.r * SCARE_COEFICIENT
-      running_angle = missile.angle + rand(-0.2..0.2)
+      running_angle = missile.angle + rand(-DISPERSION..DISPERSION)
       new_x = SCARE_SPEED * Math.cos(running_angle) + enemy.x
       new_y = SCARE_SPEED * Math.sin(running_angle) + enemy.y
     else

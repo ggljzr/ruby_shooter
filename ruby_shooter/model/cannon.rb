@@ -9,10 +9,12 @@ class StateSingle
 end
 
 class StateDouble
+  DISPERSION = 0.2
+
   def get_missile_directions(cannon)
     cannon.state = StateSingle.new
-    r = Direction.new(cannon.x, cannon.y, cannon.angle - 0.2)
-    l = Direction.new(cannon.x, cannon.y, cannon.angle + 0.2)
+    r = Direction.new(cannon.x, cannon.y, cannon.angle - DISPERSION)
+    l = Direction.new(cannon.x, cannon.y, cannon.angle + DISPERSION)
     [r, l]
   end
 end
@@ -48,15 +50,6 @@ class Cannon < GameObject
     @angle -= AIM_STEP
   end
 
-  #von tam ma metodu fire a ty predava
-  #referenci na tu missile factory
-  #takze by to asi taky slo udelat
-  #ze by to vracelo primo pole missiles
-  #nebo ta missile factory by mohla
-  #bejt i tridni promenna
-
-  #to by tady pak asi nemusel vytvaret
-  #ty directions ale vracet rovnou ty rakety
   def fire(missile_factory)
     dirs = @state.get_missile_directions(self)
     new_missiles = []

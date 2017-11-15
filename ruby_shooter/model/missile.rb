@@ -9,15 +9,6 @@ class MissileMoveStrategy
 end
 
 class SimpleMissileMove < MissileMoveStrategy
-  #tady by este mohlo bejt ze misto pohybu tou raketou to bude
-  #vracet jen jako novou pozici a raketou se bude hejbat
-  #v tim move
-
-  #ze misto move by mohlo bejt naky get_next_position
-  #by pak nemusely bejt ty settery na x a y
-
-  #to samy u enemy
-  #jako tu navratovou hodnotu pouzit treba direction
   def get_next_position(missile)
     new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
     new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
