@@ -2,7 +2,7 @@ require_relative 'game_object'
 require_relative 'position'
 
 class SimpleEnemyMove
-  def get_next_position(enemy, t)
+  def get_next_position(enemy)
     Position.new(enemy.x, enemy.y, 0)
   end
 end
@@ -17,8 +17,8 @@ class RealEnemyMove
     @angle = 0
   end
 
-  def get_next_position(enemy, t)
-    @angle += SPIN_RADIUS / 4 * t % SPIN_RADIUS
+  def get_next_position(enemy)
+    @angle += SPIN_RADIUS / 4 * 0.02 % SPIN_RADIUS
     new_x = enemy.x + Math.cos(@angle)
     new_y = enemy.y + Math.sin(@angle)
     Position.new(new_x, new_y, 0)
@@ -36,8 +36,8 @@ class Enemy < GameObject
     @move_strategy = move_strategy
   end
 
-  def move(t)
-    new_position = @move_strategy.get_next_position(self, t)
+  def move
+    new_position = @move_strategy.get_next_position(self)
     @x = new_position.x
     @y = new_position.y
   end
