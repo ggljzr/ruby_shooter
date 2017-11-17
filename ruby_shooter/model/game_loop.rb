@@ -15,11 +15,12 @@ class GameLoop
   end
 
   def run
-    p 'Starting game'
     @running = true
 
     while @running
       @clock.tick
+
+      @game_model.commands.each() { |c| c.execute if !c.executed }
 
       @game_model.spawn_enemy
 
@@ -37,7 +38,6 @@ class GameLoop
   end
 
   def stop
-    p 'Stoping game'
     @running = false
   end
 end

@@ -7,10 +7,16 @@ require_relative 'model'
 #rikal logovani nebo nakou kontrolu parametru no
 #(nebo tu kontrolu toho screen_size rozsahu)
 
+#zeptat se, jestli ten observer ma bejt u toho
+#modelu nebo tady, ale tady asi ne
 class ModelProxy
 
   def initialize(world_size_x = 500, world_size_y = 500, real_mode = false)
     @game_model = Model.new(world_size_x, world_size_y, real_mode)
+  end
+
+  def register_command(command)
+    @game_model.register_command(command)
   end
 
   def move_cannon_up
@@ -47,10 +53,12 @@ class ModelProxy
       return
     end
 
+    p 'Starting game'
     @game_model.run
   end
 
   def stop
+    p 'Stopping game'
     #nebo tady udelat nakej update high scores
     @game_model.stop
   end

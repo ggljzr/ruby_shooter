@@ -10,7 +10,7 @@ require_relative '../utils/observable'
 class Model
   include Observable, Visitable
 
-  attr_reader :missiles, :enemies
+  attr_reader :missiles, :enemies, :commands
 
   CANNON_START_X = 10
   CANNON_START_Y = 100
@@ -31,12 +31,18 @@ class Model
       @entities_factory = SimpleEntitiesFactory.new
     end
 
+    @commands = []
+
     @missiles = []
     @enemies = []
 
     @score = Score.new
 
     @game_loop = GameLoop.new(self)
+  end
+
+  def register_command(command)
+    @commands << command
   end
 
   def move_cannon_up
