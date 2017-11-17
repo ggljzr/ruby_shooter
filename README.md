@@ -11,5 +11,3 @@ $ ruby ruby_shooter.rb
 ## TODO
 
 * Split `command`, `strategy` (`missile` and `enemy`) and `state` (`cannon`) into different files
-* Allow to fire missiles with different force
-* Redo missile movement
