@@ -11,11 +11,13 @@ end
 
 class SimpleMissileMove < MissileMoveStrategy
   def get_next_position(missile)
+    t = Time.now - missile.spawn_time #time since spawn in seconds
+
     new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
     new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
     new_angle = missile.angle
 
-    #newX = newX - dragforce
+    new_y += GRAVITY * t**2
 
     Position.new(new_x, new_y, new_angle)
   end
@@ -23,24 +25,30 @@ end
 
 class RealMissileMove < MissileMoveStrategy
 
-  ANGLE_FALLOFF = 0.01
+  DRAWBACK = 2
 
   def get_next_position(missile)
+    t = Time.now - missile.spawn_time
+
     new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
     new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
-    new_angle = ANGLE_FALLOFF + missile.angle
+    new_angle = missile.angle
+
+    new_y += GRAVITY * t**2
+    new_x -= DRAWBACK
 
     Position.new(new_x, new_y, new_angle)
   end
 end
 
 class Missile < GameObject
-  attr_reader :angle
+  attr_reader :angle, :spawn_time
 
   def initialize(x = 0, y = 0, angle = 2 * Math::PI, move_strategy = SimpleMissileMove.new)
     super(x, y)
     @angle = angle
     @move_strategy = move_strategy
+    @spawn_time = Time.now
   end
 
   def move
