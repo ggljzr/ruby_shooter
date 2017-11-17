@@ -63,7 +63,7 @@ class Cannon < GameObject
   def fire(missile_factory)
     dirs = @state.get_missile_directions(self)
     new_missiles = []
-    dirs.each { |d| new_missiles << missile_factory.create_missile(d) }
+    dirs.each { |d| new_missiles << missile_factory.create_missile(d, @force) }
     new_missiles
   end
 end

@@ -2,8 +2,8 @@ require_relative 'missile'
 require_relative 'enemy'
 
 class SimpleEntitiesFactory
-  def create_missile(direction)
-    Missile.new(direction.x, direction.y, direction.angle, SimpleMissileMove.new)
+  def create_missile(direction, force)
+    Missile.new(direction.x, direction.y, direction.angle, force, SimpleMissileMove.new)
   end
 
   def create_enemy(world_size_x, world_size_y)
@@ -14,8 +14,8 @@ class SimpleEntitiesFactory
 end
 
 class RealEntitiesFactory
-  def create_missile(direction)
-    Missile.new(direction.x, direction.y, direction.angle, RealMissileMove.new)
+  def create_missile(direction, force)
+    Missile.new(direction.x, direction.y, direction.angle, force, RealMissileMove.new)
   end
 
   def create_enemy(world_size_x, world_size_y)

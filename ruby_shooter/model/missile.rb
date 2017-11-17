@@ -5,7 +5,7 @@ require_relative 'position'
 #a ten pak pouzivat pro vypocet ty drahy
 
 class MissileMoveStrategy
-  MISSILE_SPEED = 6
+  BASE_MISSILE_SPEED = 6
   GRAVITY = 5
 end
 
@@ -13,8 +13,10 @@ class SimpleMissileMove < MissileMoveStrategy
   def get_next_position(missile)
     t = Time.now - missile.spawn_time #time since spawn in seconds
 
-    new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
-    new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
+    speed = BASE_MISSILE_SPEED + missile.force
+
+    new_x = speed * Math.cos(missile.angle) + missile.x
+    new_y = speed * Math.sin(missile.angle) + missile.y
     new_angle = missile.angle
 
     new_y += GRAVITY * t**2
@@ -30,8 +32,10 @@ class RealMissileMove < MissileMoveStrategy
   def get_next_position(missile)
     t = Time.now - missile.spawn_time
 
-    new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
-    new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
+    speed = BASE_MISSILE_SPEED + missile.force
+
+    new_x = speed * Math.cos(missile.angle) + missile.x
+    new_y = speed * Math.sin(missile.angle) + missile.y
     new_angle = missile.angle
 
     new_y += GRAVITY * t**2
@@ -42,11 +46,12 @@ class RealMissileMove < MissileMoveStrategy
 end
 
 class Missile < GameObject
-  attr_reader :angle, :spawn_time
+  attr_reader :angle, :spawn_time, :force
 
-  def initialize(x = 0, y = 0, angle = 2 * Math::PI, move_strategy = SimpleMissileMove.new)
+  def initialize(x = 0, y = 0, angle = 0, force = 0, move_strategy = SimpleMissileMove.new)
     super(x, y)
     @angle = angle
+    @force = force
     @move_strategy = move_strategy
     @spawn_time = Time.now
   end
