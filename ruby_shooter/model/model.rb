@@ -45,6 +45,14 @@ class Model
     @commands << command
   end
 
+  def cannon_force_up
+    @cannon.force_up
+  end
+
+  def cannon_force_down
+    @cannon.force_down
+  end
+
   def move_cannon_up
     @cannon.move_up
   end

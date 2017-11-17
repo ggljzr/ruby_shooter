@@ -42,6 +42,20 @@ class FireCannonCommand < Command
     end
 end
 
+class CannonForceUpCommand < Command
+    def execute
+        @subject.cannon_force_up
+        @executed = true
+    end
+end
+
+class CannonForceDownCommand < Command
+    def execute
+        @subject.cannon_force_down
+        @executed = true
+    end
+end
+
 class StopCommand < Command
     def execute
         @subject.stop

@@ -22,16 +22,18 @@ end
 #este treba udelat to force pro ten vystrel
 
 class Cannon < GameObject
-  attr_reader :angle
+  attr_reader :angle, :force
   attr_accessor :state
 
   MOVE_STEP = 5
   AIM_STEP = 0.2
+  MAX_FORCE = 3
 
   def initialize(x = 0, y = 0)
     super(x, y)
     @state = StateDouble.new
     @angle = 0
+    @force = 0
   end
 
   def move_up
@@ -48,6 +50,14 @@ class Cannon < GameObject
 
   def aim_down
     @angle -= AIM_STEP
+  end
+
+  def force_up
+    @force += 1 if @force < MAX_FORCE
+  end
+
+  def force_down
+    @force -= 1 if @force > 0
   end
 
   def fire(missile_factory)

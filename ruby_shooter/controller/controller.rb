@@ -35,6 +35,10 @@ class Controller
       @game_model.register_command(AimCannonUpCommand.new(@game_model))
     when :d
       @game_model.register_command(AimCannonDownCommand.new(@game_model))
+    when :x
+      @game_model.register_command(CannonForceUpCommand.new(@game_model))
+    when :c
+      @game_model.register_command(CannonForceDownCommand.new(@game_model))
     when :q
       @game_model.register_command(StopCommand.new(@game_model))
     end

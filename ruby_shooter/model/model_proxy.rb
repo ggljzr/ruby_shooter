@@ -35,6 +35,14 @@ class ModelProxy
     @game_model.aim_cannon_down
   end
 
+  def cannon_force_up
+    @game_model.cannon_force_up
+  end
+
+  def cannon_force_down
+    @game_model.cannon_force_down
+  end
+
   def fire_cannon
     @game_model.fire_cannon
   end

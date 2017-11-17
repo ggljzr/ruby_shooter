@@ -8,7 +8,10 @@ class GraphicsDrawer
 
     @bg = Rubygame::Surface.load('ruby_shooter/resources/bg.png')
 
-    @cannon_sprite = Rubygame::Surface.load('ruby_shooter/resources/cannon.png')
+    @cannon_sprites = [Rubygame::Surface.load('ruby_shooter/resources/cannon0.png'),
+                       Rubygame::Surface.load('ruby_shooter/resources/cannon1.png'),
+                       Rubygame::Surface.load('ruby_shooter/resources/cannon2.png'),
+                       Rubygame::Surface.load('ruby_shooter/resources/cannon3.png')]
     @enemy_sprite = Rubygame::Surface.load('ruby_shooter/resources/enemy.png')
     @missile_sprite = Rubygame::Surface.load('ruby_shooter/resources/missile.png')
 
@@ -26,7 +29,14 @@ class GraphicsDrawer
 
   def draw_cannon(cannon)
     deg = cannon.angle * 180 / Math::PI
-    rot_cannon = @cannon_sprite.rotozoom(deg * -1, 1)
+
+    force_cannon_sprite = @cannon_sprites[0]
+
+    if cannon.force.between?(0, @cannon_sprites.length - 1)
+      force_cannon_sprite = @cannon_sprites[cannon.force]
+    end
+
+    rot_cannon = force_cannon_sprite.rotozoom(deg * -1, 1)
     draw_sprite(rot_cannon, cannon.x, cannon.y)
   end
 
