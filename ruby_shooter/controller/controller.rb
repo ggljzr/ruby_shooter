@@ -12,7 +12,7 @@ class Controller
     @event_queue.each do |event|
       case event
       when Rubygame::Events::QuitRequested
-        @game_model.running = false
+        @game_model.register_command(StopCommand.new(@game_model))
       when Rubygame::Events::KeyPressed
         at_keypress(event.key)
       end
