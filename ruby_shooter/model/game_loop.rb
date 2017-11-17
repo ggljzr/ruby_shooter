@@ -28,7 +28,7 @@ class GameLoop
       @game_model.enemies.each { |e| e.move(t) }
 
       @game_model.missiles.each do |m|
-        m.move
+        m.move(t)
         @game_model.enemies.each do |e|
           e.move_away(m)
           @game_model.enemy_missile_collision(e, m) if e.get_collision(m)

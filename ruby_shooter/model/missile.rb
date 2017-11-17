@@ -6,10 +6,11 @@ require_relative 'position'
 
 class MissileMoveStrategy
   MISSILE_SPEED = 6
+  GAVITY = 5
 end
 
 class SimpleMissileMove < MissileMoveStrategy
-  def get_next_position(missile)
+  def get_next_position(missile, t)
     new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
     new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
     new_angle = missile.angle
@@ -27,7 +28,7 @@ class RealMissileMove < MissileMoveStrategy
 
   ANGLE_FALLOFF = 0.01
 
-  def get_next_position(missile)
+  def get_next_position(missile, t)
     new_x = MISSILE_SPEED * Math.cos(missile.angle) + missile.x
     new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
     new_angle = ANGLE_FALLOFF + missile.angle
@@ -45,8 +46,8 @@ class Missile < GameObject
     @move_strategy = move_strategy
   end
 
-  def move
-    new_position = @move_strategy.get_next_position(self)
+  def move(t)
+    new_position = @move_strategy.get_next_position(self, t)
     @x = new_position.x
     @y = new_position.y
     @angle = new_position.angle
