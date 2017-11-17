@@ -17,7 +17,7 @@ class GraphicsDrawer
 
     Rubygame::TTF.setup
     @font = Rubygame::TTF.new("ruby_shooter/resources/DejaVuSans-Bold.ttf", 20)
-    @font_color = [0xee, 0xee, 0x33]
+    @font_color = [0xFF, 0x00, 0xFF]
   end
 
   def draw_sprite(image, x, y)
