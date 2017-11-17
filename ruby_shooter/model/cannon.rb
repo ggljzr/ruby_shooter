@@ -19,8 +19,6 @@ class StateDouble
   end
 end
 
-#este treba udelat to force pro ten vystrel
-
 class Cannon < GameObject
   attr_reader :angle, :force
   attr_accessor :state

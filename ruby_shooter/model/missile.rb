@@ -1,9 +1,6 @@
 require_relative 'game_object'
 require_relative 'position'
 
-#rakety by si mohly drzet cas vytvoreni
-#a ten pak pouzivat pro vypocet ty drahy
-
 class MissileMoveStrategy
   BASE_MISSILE_SPEED = 6
   GRAVITY = 5
