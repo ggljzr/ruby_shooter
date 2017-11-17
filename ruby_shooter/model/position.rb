@@ -1,4 +1,4 @@
-class Direction
+class Position
   attr_reader :x, :y, :angle
 
   def initialize(x, y, angle)

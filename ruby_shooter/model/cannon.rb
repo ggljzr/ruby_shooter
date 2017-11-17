@@ -1,10 +1,10 @@
 require_relative 'game_object'
-require_relative 'direction'
+require_relative 'position'
 
 class StateSingle
   def get_missile_directions(cannon)
     cannon.state = StateDouble.new
-    [Direction.new(cannon.x, cannon.y, cannon.angle)]
+    [Position.new(cannon.x, cannon.y, cannon.angle)]
   end
 end
 
@@ -13,8 +13,8 @@ class StateDouble
 
   def get_missile_directions(cannon)
     cannon.state = StateSingle.new
-    r = Direction.new(cannon.x, cannon.y, cannon.angle - DISPERSION)
-    l = Direction.new(cannon.x, cannon.y, cannon.angle + DISPERSION)
+    r = Position.new(cannon.x, cannon.y, cannon.angle - DISPERSION)
+    l = Position.new(cannon.x, cannon.y, cannon.angle + DISPERSION)
     [r, l]
   end
 end

@@ -1,9 +1,9 @@
 require_relative 'game_object'
-require_relative 'direction'
+require_relative 'position'
 
 class SimpleEnemyMove
   def get_next_position(enemy, t)
-    Direction.new(enemy.x, enemy.y, 0)
+    Position.new(enemy.x, enemy.y, 0)
   end
 end
 
@@ -18,7 +18,7 @@ class RealEnemyMove
     @angle += SPIN_RADIUS / 4 * t % SPIN_RADIUS
     new_x = enemy.x + Math.cos(@angle)
     new_y = enemy.y + Math.sin(@angle)
-    Direction.new(new_x, new_y, 0)
+    Position.new(new_x, new_y, 0)
   end
 end
 

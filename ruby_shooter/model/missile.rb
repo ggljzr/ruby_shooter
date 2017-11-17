@@ -1,5 +1,5 @@
 require_relative 'game_object'
-require_relative 'direction'
+require_relative 'position'
 
 #rakety by si mohly drzet cas vytvoreni
 #a ten pak pouzivat pro vypocet ty drahy
@@ -19,7 +19,7 @@ class SimpleMissileMove < MissileMoveStrategy
 
     #newX = newX - dragforce
 
-    Direction.new(new_x, new_y, new_angle)
+    Position.new(new_x, new_y, new_angle)
   end
 end
 
@@ -32,7 +32,7 @@ class RealMissileMove < MissileMoveStrategy
     new_y = MISSILE_SPEED * Math.sin(missile.angle) + missile.y
     new_angle = ANGLE_FALLOFF + missile.angle
 
-    Direction.new(new_x, new_y, new_angle)
+    Position.new(new_x, new_y, new_angle)
   end
 end
 
