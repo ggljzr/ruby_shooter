@@ -7,10 +7,10 @@ require_relative 'position'
 class MissileMoveStrategy
   BASE_MISSILE_SPEED = 6
   GRAVITY = 5
-end
 
-class SimpleMissileMove < MissileMoveStrategy
-  def get_next_position(missile)
+  protected
+
+  def next_position_base(missile)
     t = Time.now - missile.spawn_time #time since spawn in seconds
 
     speed = BASE_MISSILE_SPEED + missile.force
@@ -25,23 +25,22 @@ class SimpleMissileMove < MissileMoveStrategy
   end
 end
 
+class SimpleMissileMove < MissileMoveStrategy
+  def get_next_position(missile)
+    next_position_base(missile)
+  end
+end
+
 class RealMissileMove < MissileMoveStrategy
 
-  DRAWBACK = 2
+  DRAWBACK = 5
 
   def get_next_position(missile)
     t = Time.now - missile.spawn_time
 
-    speed = BASE_MISSILE_SPEED + missile.force
-
-    new_x = speed * Math.cos(missile.angle) + missile.x
-    new_y = speed * Math.sin(missile.angle) + missile.y
-    new_angle = missile.angle
-
-    new_y += GRAVITY * t**2
-    new_x -= DRAWBACK
-
-    Position.new(new_x, new_y, new_angle)
+    base_position = next_position_base(missile)
+    base_position.x -= DRAWBACK * t**2
+    base_position
   end
 end
 
