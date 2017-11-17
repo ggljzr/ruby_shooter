@@ -10,6 +10,9 @@ end
 class RealEnemyMove
   SPIN_RADIUS = 6 * Math::PI
 
+  #angle je pouzitej jen tady pro
+  #ten krouzivej pohyb, proto
+  #enemy nema tridni promennou angle
   def initialize
     @angle = 0
   end
