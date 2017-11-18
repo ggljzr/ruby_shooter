@@ -18,6 +18,8 @@ class KeyboardController < Controller
     end
   end
 
+  private
+
   #tady se vlastne ty commandy vytvarej s tim model_proxy
   #takze kdyz se budou v modelu executovat tak se volaj
   #ty metody z model proxy, nevim jestli je dobre, ale snad jo

@@ -23,6 +23,8 @@ class MouseController < Controller
     end
   end
 
+  private
+
   def at_mouse_click(button)
     case button
     when :mouse_left
