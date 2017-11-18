@@ -20,7 +20,7 @@ class GameLoop
     while @running
       @clock.tick
 
-      @game_model.commands.each { |c| c.execute if !c.executed }
+      @game_model.commands.each { |c| c.execute }
 
       @game_model.spawn_enemy
 
