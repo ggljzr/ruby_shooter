@@ -15,6 +15,12 @@ describe 'Missile' do
     end
 
     context 'Moving behavior' do
+        it 'moves forward when moved' do
+            old_x = @missile.x
+            @missile.move
+            expect(@missile.x).to be > old_x
+        end
+
         it 'falls slightly when moving (simple strategy)' do
             old_y = @missile.y
             @missile.move
