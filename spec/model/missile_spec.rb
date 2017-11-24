@@ -6,6 +6,7 @@ describe 'Missile' do
     before(:each) do
         #create missile on pos [0, 0] with 0 angle
         @missile = Missile.new(0, 0, 0)
+        @real_missile = Missile.new(0, 0, 0, 0, RealMissileMove.new)
     end
 
     context 'Has expected methods' do
@@ -27,12 +28,16 @@ describe 'Missile' do
             expect(@missile.y).to be > old_y
         end
 
-        it 'moves slightly back (real strategy)' do
-            real_missile = Missile.new(0, 0, 0, 0, RealMissileMove.new)
-            @missile.move
-            real_missile.move
+        it 'falls slightly when moving (real strategy)' do
+            old_y = @real_missile.y
+            @real_missile.move
+            expect(@real_missile.y).to be > old_y
+        end
 
-            expect(real_missile.x).to be < @missile.x
+        it 'moves slightly back (real strategy)' do
+            @missile.move
+            @real_missile.move
+            expect(@real_missile.x).to be < @missile.x
         end
 
         it 'moves faster with bigger force' do
