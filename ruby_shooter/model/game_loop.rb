@@ -29,7 +29,7 @@ class GameLoop
       @clock.tick
 
       @game_model.commands.each do |c|
-        save_memento unless c.class == StepBackCommand 
+        save_memento unless c.get_type == :StepBackCommand
         c.execute
       end
 

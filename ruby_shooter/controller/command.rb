@@ -6,6 +6,10 @@ class Command
     @executed = false
   end
 
+  def get_type
+    self.class.to_s.to_sym
+  end
+
   protected
 
   def exec_method(action)
