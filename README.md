@@ -10,4 +10,5 @@ $ ruby ruby_shooter.rb
 
 ## TODO
 
+* Add some logging (high scores) to ModelProxy
 * Split `command`, `strategy` (`missile` and `enemy`) and `state` (`cannon`) into different files

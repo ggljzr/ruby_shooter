@@ -26,7 +26,6 @@ class View
   def update
     @bg.blit(@screen, [0, 0]) #clear the screen
 
-    #tady je moznost pouzit pattern iterator
     objects = @game_model.get_game_objects
     objects.each { |o| o.accept(@object_visitor)}
     @screen.update
