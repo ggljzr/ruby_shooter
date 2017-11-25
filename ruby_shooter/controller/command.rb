@@ -14,6 +14,12 @@ class Command
   end
 end
 
+class StepBackCommand < Command
+  def execute
+    exec_method(:step_back)
+  end
+end
+
 class MoveCannonUpCommand < Command
   def execute
     exec_method(:move_cannon_up)

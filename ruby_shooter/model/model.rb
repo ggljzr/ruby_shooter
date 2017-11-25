@@ -10,7 +10,7 @@ require_relative '../utils/observable'
 class Model
   include Observable, Visitable
 
-  attr_reader :missiles, :enemies, :commands
+  attr_reader :missiles, :enemies, :commands, :score, :cannon
 
   CANNON_START_X = 10
   CANNON_START_Y = 100
@@ -69,6 +69,23 @@ class Model
     @cannon.aim_down
   end
 
+  def marshal_dump
+    [@cannon, @score, @enemies]
+  end
+
+  def marshal_load(data)
+    @cannon = data[0]
+    @score = data[1]
+    @enemies = data[2]
+  end
+
+  def step_back
+    old_model = @game_loop.restore_memento
+    @cannon = old_model.cannon
+    @score = old_model.score
+    @enemies = old_model.enemies
+  end
+
   def get_game_objects
     objects = []
 
@@ -99,6 +116,10 @@ class Model
   def remove_old_objects
     @missiles = @missiles.select { |m| m.check_bounds(@world_size_x, @world_size_y)}
     @enemies = @enemies.select { |e| e.check_bounds(@world_size_x, @world_size_y)}
+  end
+
+  def clear_commands
+    @commands = @commands.select { |c| !c.executed }
   end
 
   def run

@@ -40,6 +40,8 @@ class KeyboardController < Controller
       @game_model.register_command(CannonForceUpCommand.new(@game_model))
     when :c
       @game_model.register_command(CannonForceDownCommand.new(@game_model))
+    when :u
+      @game_model.register_command(StepBackCommand.new(@game_model))
     when :q
       @game_model.register_command(StopCommand.new(@game_model))
     end

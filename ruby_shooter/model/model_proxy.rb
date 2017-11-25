@@ -19,6 +19,10 @@ class ModelProxy
     @game_model.register_command(command)
   end
 
+  def step_back
+    @game_model.step_back
+  end
+
   def move_cannon_up
     @game_model.move_cannon_up
   end

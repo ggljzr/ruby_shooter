@@ -1,5 +1,8 @@
 require 'rubygame'
 
+require_relative 'memento'
+require_relative '../controller/command'
+
 class GameLoop
 
   attr_reader :running
@@ -12,6 +15,11 @@ class GameLoop
     @running = false
     @clock = Rubygame::Clock.new
     @clock.target_framerate = TARGET_FRAMERATE
+    @memento = Memento.new(@game_model)
+  end
+
+  def restore_memento
+    @memento.restore
   end
 
   def run
@@ -20,7 +28,10 @@ class GameLoop
     while @running
       @clock.tick
 
-      @game_model.commands.each { |c| c.execute }
+      @game_model.commands.each do |c|
+        save_memento unless c.class == StepBackCommand 
+        c.execute
+      end
 
       @game_model.spawn_enemy
 
@@ -35,11 +46,18 @@ class GameLoop
       end
 
       @game_model.remove_old_objects
+      @game_model.clear_commands
       @game_model.notify_observers
     end
   end
 
   def stop
     @running = false
+  end
+
+  private
+
+  def save_memento
+    @memento = Memento.new(@game_model)
   end
 end
