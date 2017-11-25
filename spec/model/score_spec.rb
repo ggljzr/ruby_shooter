@@ -34,5 +34,4 @@ describe 'Score' do
       expect(@score.value).to eq 0
     end
   end
-
 end
