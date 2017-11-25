@@ -43,4 +43,17 @@ describe 'Model' do
       expect(@model).to respond_to(:fire_cannon)
     end
   end
+
+  context 'Memento' do
+    it 'steps back' do
+      old_model = Marshal.dump(@model) #memento is created on model initialization
+                                       #(in game_loop)
+      Thread.new { @model.run }
+      sleep(1)
+      @model.stop
+      @model.step_back                 #without recieveing any commands, model should
+                                       #step back to this memento (after arbitrary run time)
+      expect(old_model).to eq Marshal.dump(@model)
+    end
+  end
 end
