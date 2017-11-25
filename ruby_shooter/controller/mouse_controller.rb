@@ -54,6 +54,8 @@ class MouseController < Controller
 
   def at_keypress(key)
     case key
+    when :u
+      @game_model.register_command(StepBackCommand.new(@game_model))
     when :q
       @game_model.register_command(StopCommand.new(@game_model))
     end
