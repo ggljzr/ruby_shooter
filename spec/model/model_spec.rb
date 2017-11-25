@@ -24,6 +24,15 @@ describe 'Model' do
       expect(@model).to respond_to(:get_game_objects)
     end
 
+    it 'has step_back' do
+      expect(@model).to respond_to(:step_back)
+    end
+
+    it 'has marshal serialize methods' do
+      expect(@model).to respond_to(:marshal_load)
+      expect(@model).to respond_to(:marshal_dump)
+    end
+
     it 'has cannon controll methods' do
       expect(@model).to respond_to(:move_cannon_up)
       expect(@model).to respond_to(:move_cannon_down)
